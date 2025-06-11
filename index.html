@@ -114,27 +114,27 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                         <div class="flex items-center gap-4">
                             <label for="size_m" class="w-16 text-sm font-medium text-gray-700">Size M</label>
-                            <input type="number" id="size_m" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_m" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="size_l" class="w-16 text-sm font-medium text-gray-700">Size L</label>
-                            <input type="number" id="size_l" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_l" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="size_xl" class="w-16 text-sm font-medium text-gray-700">Size XL</label>
-                            <input type="number" id="size_xl" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_xl" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="size_2xl" class="w-16 text-sm font-medium text-gray-700">Size 2XL</label>
-                            <input type="number" id="size_2xl" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_2xl" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="size_3xl" class="w-16 text-sm font-medium text-gray-700">Size 3XL</label>
-                            <input type="number" id="size_3xl" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_3xl" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="size_4xl" class="w-16 text-sm font-medium text-gray-700">Size 4XL</label>
-                            <input type="number" id="size_4xl" min="0" value="0" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" inputmode="numeric">
+                            <select id="size_4xl" required class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none"></select>
                         </div>
                     </div>
                 </div>
@@ -149,10 +149,6 @@
             </form>
         </div>
         
-        <!-- Footer with User ID -->
-        <footer class="text-center mt-8 text-sm text-gray-400">
-            <p>Mã Người Dùng: <span id="user-id-display">Đang tải...</span></p>
-        </footer>
     </div>
 
     <!-- Modal tóm tắt -->
@@ -163,8 +159,8 @@
                     <i class="ph-bold ph-check-circle text-4xl text-green-600"></i>
                 </div>
             </div>
-            <h3 class="text-2xl font-bold text-center text-gray-800 mb-2">Đã Lưu Thành Công!</h3>
-            <p class="text-center text-gray-500 mb-6">Dưới đây là tóm tắt thông tin bạn vừa nhập.</p>
+            <h3 class="text-2xl font-bold text-center text-gray-800 mb-2">Đã Gửi Thành Công!</h3>
+            <p class="text-center text-gray-500 mb-6">Dưới đây là tóm tắt thông tin bạn vừa gửi.</p>
             
             <div class="bg-gray-50 p-4 rounded-lg space-y-3">
                 <div>
@@ -192,68 +188,44 @@
     </div>
 
 
-    <!-- Firebase SDKs -->
+    <!-- Script chính của ứng dụng -->
     <script type="module">
-        // Import các hàm cần thiết từ Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { 
-            getFirestore, collection, addDoc, serverTimestamp, query, where, getDocs, writeBatch
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- CẤU HÌNH VÀ KHỞI TẠO FIREBASE ---
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config)
-            : { apiKey: "YOUR_API_KEY", authDomain: "YOUR_AUTH_DOMAIN", projectId: "YOUR_PROJECT_ID" };
-        
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-inventory-app';
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        let userId = null;
-        let productsCollectionRef = null;
-
-        // --- QUẢN LÝ XÁC THỰC NGƯỜI DÙNG ---
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                userId = user.uid;
-                document.getElementById('user-id-display').textContent = userId;
-                console.log("User is signed in with UID:", userId);
-                productsCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/dresses`);
-            } else {
-                console.log("User is not signed in. Attempting to sign in...");
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    console.error("Error during sign-in:", error);
-                }
-            }
-        });
-
         const form = document.getElementById('inventory-form');
         const summaryModal = document.getElementById('summary-modal');
+
+        // --- KHỞI TẠO CÁC LỰA CHỌN CHO SIZE ---
+        function populateSizeOptions() {
+            const sizes = ['m', 'l', 'xl', '2xl', '3xl', '4xl'];
+            sizes.forEach(size => {
+                const selectElement = document.getElementById(`size_${size}`);
+                if (selectElement) {
+                    // Xóa các lựa chọn cũ để tránh trùng lặp
+                    selectElement.innerHTML = ''; 
+                    // Thêm các lựa chọn từ 0 đến 20
+                    for (let i = 0; i <= 20; i++) {
+                        const option = document.createElement('option');
+                        option.value = i;
+                        option.textContent = i;
+                        selectElement.appendChild(option);
+                    }
+                }
+            });
+        }
+        // Gọi hàm để tạo các lựa chọn khi trang được tải
+        populateSizeOptions();
+
 
         // --- LƯU THÔNG TIN KIỂM KHO ---
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!productsCollectionRef) {
-                alert("Chưa kết nối được với cơ sở dữ liệu!");
-                return;
-            }
             
-            const maDam = form.ma_dam.value.trim().toUpperCase(); // Luôn lưu chữ hoa
+            const maDam = form.ma_dam.value.trim().toUpperCase();
             if (!maDam) {
                 alert("Vui lòng nhập Mã Đầm.");
                 return;
             }
 
-            const productData = {
+            const webhookData = {
                 ma_dam: maDam,
                 sizes: {
                     m: parseInt(form.size_m.value) || 0,
@@ -265,7 +237,7 @@
                 },
                 hang: form.hang.value,
                 ke: form.ke.value,
-                lastCheckedAt: serverTimestamp()
+                lastCheckedAt: new Date().toISOString()
             };
 
             const addButton = form.querySelector('button[type="submit"]');
@@ -273,26 +245,30 @@
 
             try {
                 addButton.disabled = true;
-                addButton.innerHTML = '<span>Đang lưu...</span>';
+                addButton.innerHTML = '<span>Đang gửi...</span>';
 
-                const q = query(productsCollectionRef, where("ma_dam", "==", maDam));
-                const querySnapshot = await getDocs(q);
+                // Gửi dữ liệu đến Webhook
+                const webhookUrl = 'https://n8n-hongnhung198198-u40833.vm.elestio.app/webhook/d4c4b430-8bf2-45d0-a4ce-78d9e41a6b3c';
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookData),
+                });
 
-                if (querySnapshot.empty) {
-                    await addDoc(productsCollectionRef, productData);
-                } else {
-                    const batch = writeBatch(db);
-                    querySnapshot.forEach((doc) => {
-                        batch.update(doc.ref, productData);
-                    });
-                    await batch.commit();
+                if (!response.ok) {
+                    throw new Error(`Webhook returned status ${response.status}`);
                 }
+
+                console.log('Successfully sent data to webhook.');
                 
-                showSummary(productData);
+                // Hiển thị tóm tắt
+                showSummary(webhookData);
 
             } catch (error) {
-                console.error("Error saving inventory data: ", error);
-                alert("Đã xảy ra lỗi khi lưu thông tin kiểm kho.");
+                console.error("Error sending data to webhook: ", error);
+                alert("Đã xảy ra lỗi khi gửi thông tin. Vui lòng thử lại.");
             } finally {
                  addButton.disabled = false;
                  addButton.innerHTML = originalButtonText;
