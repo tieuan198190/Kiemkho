@@ -71,8 +71,8 @@
                 <!-- Vị trí -->
                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="hang" class="block text-sm font-medium text-gray-600 mb-1">Hàng</label>
-                        <select id="hang" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none">
+                        <label for="ke" class="block text-sm font-medium text-gray-600 mb-1">Kệ</label>
+                        <select id="ke" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -85,12 +85,13 @@
                             <option>10</option>
                             <option>11</option>
                             <option>12</option>
+                            <option>13</option>
                             <option>Lầu 1</option>
                         </select>
                     </div>
                     <div>
-                        <label for="ke" class="block text-sm font-medium text-gray-600 mb-1">Kệ</label>
-                        <select id="ke" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none">
+                        <label for="hang" class="block text-sm font-medium text-gray-600 mb-1">Hàng</label>
+                        <select id="hang" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-white appearance-none">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -278,7 +279,7 @@
         // --- HIỂN THỊ MODAL TÓM TẮT ---
         function showSummary(data) {
             document.getElementById('summary-ma-dam').textContent = data.ma_dam;
-            document.getElementById('summary-vi-tri').textContent = `Hàng ${data.hang} - Kệ ${data.ke}`;
+            document.getElementById('summary-vi-tri').textContent = `Kệ ${data.ke} - Hàng ${data.hang}`;
             
             const sizesContainer = document.getElementById('summary-sizes');
             sizesContainer.innerHTML = '';
